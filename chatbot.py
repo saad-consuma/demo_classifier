@@ -162,8 +162,8 @@ Now process the single datapoint provided and output EXACTLY one JSON object fol
 
 def init_model(model_name='meta-llama/Llama-3.2-1B-Instruct'):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
+    tokenizer.padding_side = "left"
 
-    # Make sure we *have* a pad token
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 

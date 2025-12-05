@@ -1,4 +1,5 @@
 import os
+import sys, traceback
 from typing import Any, Dict, List
 
 from fastapi import FastAPI, HTTPException
@@ -41,4 +42,5 @@ def predict(request: PredictRequest):
         return PredictResponse(predictions=preds)
 
     except Exception as e:
+        traceback.print_exc(file=sys.stderr)
         raise HTTPException(status_code=500, detail=str(e))
