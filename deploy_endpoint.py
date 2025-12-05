@@ -4,13 +4,12 @@ from google.cloud import aiplatform
 PROJECT_ID = "gemini-api-426311"
 REGION = "us-central1"
 
-MODEL_ID = "REPLACE_WITH_MODEL_ID"  # just the numeric ID, e.g. 1234567890123456789
+MODEL_ID = "projects/792829304616/locations/us-central1/models/1901406348633964544"  # just the numeric ID, e.g. 1234567890123456789
 
 def main():
     aiplatform.init(project=PROJECT_ID, location=REGION)
 
-    model_name = f"projects/{PROJECT_ID}/locations/{REGION}/models/{MODEL_ID}"
-    model = aiplatform.Model(model_name=model_name)
+    model = aiplatform.Model(model_name=MODEL_ID)
 
     hf_token = os.environ.get("HF_TOKEN")
     if not hf_token:
