@@ -2,7 +2,7 @@ from google.cloud import aiplatform
 
 PROJECT_ID = "gemini-api-426311"
 REGION = "us-central1"
-ENDPOINT_ID = "REPLACE_WITH_ENDPOINT_ID"  # from deploy step
+ENDPOINT_ID = "3711589516046237696"
 
 def main():
     client = aiplatform.gapic.PredictionServiceClient(
