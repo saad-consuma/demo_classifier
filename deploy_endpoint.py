@@ -5,7 +5,7 @@ PROJECT_ID = "gemini-api-426311"
 REGION = "us-central1"
 
 # Model ID (no @1 needed)
-MODEL_NAME = ""
+MODEL_NAME = "projects/792829304616/locations/us-central1/models/5428287806818484224"
 
 # Container image in Artifact Registry
 IMAGE_URI = "us-central1-docker.pkg.dev/gemini-api-426311/region-classifier-repo/region-classifier-slm:v1"
