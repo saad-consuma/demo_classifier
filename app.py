@@ -1,4 +1,5 @@
 import os
+import json
 import sys, traceback
 from typing import Any, Dict, List
 
@@ -20,7 +21,7 @@ prompt = init_prompt()
 
 
 class PredictRequest(BaseModel):
-    instances: List[Dict[str, Any]]
+    instances: List[str]
 
 
 class PredictResponse(BaseModel):
@@ -36,9 +37,16 @@ def health():
 def predict(request: PredictRequest):
     if not request.instances:
         raise HTTPException(status_code=400, detail="No instances provided")
+    
+    norm_instances = []
+    for i in request.instances:
+        # i -> "[{...datapoint...}]"
+        # json.loads(i) -> [{...datapoint...}, {...datapoint...}, ...]
+        # json.loads(i)[0] -> {...datapoint...}
+        norm_instances.append(json.loads(i)[0])
 
     try:
-        preds = generate_for_batch(request.instances, tokenizer, model, prompt)
+        preds = generate_for_batch(norm_instances, tokenizer, model, prompt)
         return PredictResponse(predictions=preds)
 
     except Exception as e:
