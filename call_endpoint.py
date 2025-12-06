@@ -1,5 +1,6 @@
 # call_endpoint.py
 import argparse
+import json
 from google.cloud import aiplatform
 
 PROJECT_ID = "gemini-api-426311"
