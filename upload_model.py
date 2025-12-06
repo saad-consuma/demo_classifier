@@ -28,6 +28,7 @@ def main():
             "HF_TOKEN": hf_token,
             "PORT": "8080",
             "MODEL_NAME": "meta-llama/Llama-3.2-3B-Instruct",
+            "MAX_INTERNAL_BATCH": "8",
         },
     )
 
