@@ -21,8 +21,7 @@ prompt = init_prompt()
 
 
 class PredictRequest(BaseModel):
-    instances: List[str]
-
+    instances: Any
 
 class PredictResponse(BaseModel):
     predictions: List[str]
@@ -40,14 +39,14 @@ def predict(request: PredictRequest):
     
     norm_instances = []
     for i in request.instances:
-        # i -> "[{...datapoint...}]"
-        # json.loads(i) -> [{...datapoint...}, {...datapoint...}, ...]
-        # json.loads(i)[0] -> {...datapoint...}
-        data_dict = json.loads(i)
-        if isinstance(data_dict, list):
-            data_dict = data_dict[0]
-        if isinstance(data_dict, dict):
-            norm_instances.append(data_dict)
+        if isinstance(i, str):
+            data_dict = json.loads(i)
+            if isinstance(data_dict, list):
+                data_dict = data_dict[0]
+            if isinstance(data_dict, dict):
+                norm_instances.append(data_dict)
+        elif isinstance(i, dict):
+            norm_instances.append(i)
 
     try:
         preds = generate_for_batch(norm_instances, tokenizer, model, prompt)
