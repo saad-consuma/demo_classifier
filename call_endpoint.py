@@ -28,7 +28,7 @@ def main():
         "source": "local",
     }
 
-    resp = client.predict(endpoint=endpoint_path, instances=[str(instance)])
+    resp = client.predict(endpoint=endpoint_path, instances=[json.dumps(instance)])
     print(resp.predictions)
 
 if __name__ == "__main__":
