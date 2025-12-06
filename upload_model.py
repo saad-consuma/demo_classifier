@@ -27,7 +27,7 @@ def main():
         serving_container_environment_variables={
             "HF_TOKEN": hf_token,
             "PORT": "8080",
-            "MODEL_NAME": "meta-llama/Llama-3.2-1B-Instruct",
+            "MODEL_NAME": "meta-llama/Llama-3.2-3B-Instruct",
         },
     )
 
