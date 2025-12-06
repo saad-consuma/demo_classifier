@@ -43,8 +43,11 @@ def predict(request: PredictRequest):
         # i -> "[{...datapoint...}]"
         # json.loads(i) -> [{...datapoint...}, {...datapoint...}, ...]
         # json.loads(i)[0] -> {...datapoint...}
-        data_dict = json.loads(i)[0]
-        norm_instances.append(data_dict)
+        data_dict = json.loads(i)
+        if isinstance(data_dict, list):
+            data_dict = data_dict[0]
+        if isinstance(data_dict, dict):
+            norm_instances.append(data_dict)
 
     try:
         preds = generate_for_batch(norm_instances, tokenizer, model, prompt)
