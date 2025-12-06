@@ -21,13 +21,22 @@ def main():
         endpoint=args.endpoint_id,
     )
 
-    instance = {
-        "id": "test",
-        "metadata_content": {"content": "What do you think about fitness in Indian youths?"},
-        "profile_stats": {"username": "test_user"},
-        "engagements": {},
-        "source": "local",
-    }
+    instances = [
+        {
+            "id": "test",
+            "metadata_content": {"content": "What do you think about fitness in Indian youths?"},
+            "profile_stats": {"username": "test_user"},
+            "engagements": {},
+            "source": "local",
+        },
+        {
+            "id": "test2",
+            "metadata_content": {"content": "why is the weather in Scarborough fucked? why cant it be like missasauga?"},
+            "profile_stats": {"username": "test_user"},
+            "engagements": {},
+            "source": "local",
+        }
+    ]
 
     resp = client.predict(endpoint=endpoint_path, instances=[json.dumps(instance)])
     print(resp.predictions)
