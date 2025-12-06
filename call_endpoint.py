@@ -1,10 +1,15 @@
+# call_endpoint.py
+import argparse
 from google.cloud import aiplatform
 
 PROJECT_ID = "gemini-api-426311"
 REGION = "us-central1"
-ENDPOINT_ID = "3711589516046237696"
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--endpoint-id", required=True)
+    args = parser.parse_args()
+
     client = aiplatform.gapic.PredictionServiceClient(
         client_options={"api_endpoint": f"{REGION}-aiplatform.googleapis.com"}
     )
@@ -12,49 +17,19 @@ def main():
     endpoint_path = client.endpoint_path(
         project=PROJECT_ID,
         location=REGION,
-        endpoint=ENDPOINT_ID,
+        endpoint=args.endpoint_id,
     )
 
-    # Example datapoint (same structure you tested locally)
     instance = {
-        "id": "1862330364896698772",
-        "metadata_content": {
-            "content": "#shorts\nअगर कमजोरी मिटाना हो तो - ...",
-            "created_at": "2024-11-29",
-            "language": "hi",
-            "type": "tweet"
-        },
-        "profile_stats": {
-            "username": "RishiDarshan",
-            "full_name": "Rishi Darshan™",
-            "description": "Official account of Rishi Darshan...",
-            "user_id": "1420127028",
-            "followers": 36425,
-            "following": 57,
-            "location": "San Jose, CA",
-            "is_verified": False,
-        },
-        "engagements": {
-            "likes": 430,
-            "comments": 49,
-            "shares": 374,
-            "quotes": 0,
-            "bookmarks": 59,
-            "views": 1211,
-            "engagement_rate": 2.503774879890185,
-        },
-        "comments_collected": 36,
-        "source": "twitter_1",
-        "search_query": "indian gym supplements since:2024-10-22 lang:en until:2025-10-22 lang:en",
+        "id": "test",
+        "metadata_content": {"content": "What do you think about fitness in Indian youths?"},
+        "profile_stats": {"username": "test_user"},
+        "engagements": {},
+        "source": "local",
     }
 
-    response = client.predict(
-        endpoint=endpoint_path,
-        instances=[instance],
-    )
-
-    print("Predictions:")
-    print(response.predictions)
+    resp = client.predict(endpoint=endpoint_path, instances=[instance])
+    print(resp.predictions)
 
 if __name__ == "__main__":
     main()
