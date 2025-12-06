@@ -38,7 +38,7 @@ def main():
         }
     ]
 
-    resp = client.predict(endpoint=endpoint_path, instances=[json.dumps(instance)])
+    resp = client.predict(endpoint=endpoint_path, instances=[json.dumps(instance) for instance in instances])
     print(resp.predictions)
 
 if __name__ == "__main__":
