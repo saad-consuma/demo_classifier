@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 BASE_MODEL_NAME = 'meta-llama/Llama-3.2-1B-Instruct'
 
 GEN_KWARGS = dict(
-    max_new_tokens=96,        # plenty for your JSON
+    max_new_tokens=256,        # plenty for your JSON
     do_sample=False,          # deterministic for structured output
     temperature=0.0,
     top_p=1.0,
@@ -160,7 +160,7 @@ Now process the single datapoint provided and output EXACTLY one JSON object fol
 """
 
 
-def init_model(model_name='meta-llama/Llama-3.2-1B-Instruct'):
+def init_model(model_name='meta-llama/Llama-3.2-3B-Instruct'):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.padding_side = "left"
 
